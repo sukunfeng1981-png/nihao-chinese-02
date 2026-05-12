@@ -23,7 +23,7 @@ const rawData = [
     { id: "12", side: 'right', ...ROLES.nn, zh: "现在四点四十五分。", th: "ตอนนี้ 4:45" },
     { id: "13", side: 'left', ...ROLES.bb, zh: "你会游泳吗？", th: "คุณว่ายน้ำเป็นไหม" },
     { id: "14", side: 'right', ...ROLES.nn, zh: "我不会游泳。", th: "ฉันว่ายน้ำไม่เป็น" },
-    { id: "15", side: 'left', ...ROLES.bb, zh: "你会打篮球吗？", th: "คุณเล่นบาสเกตบอลเป็นไหม" },
+    { id: "15", side: 'right', ...ROLES.nn, zh: "你会打篮球吗？", th: "คุณเล่นบาสเกตบอลเป็นไหม" },
     { id: "16", side: 'left', ...ROLES.bb, zh: "我会打篮球。", th: "ฉันเล่นบาสเกตบอลเป็น" },
     { id: "17", side: 'left', ...ROLES.bb, zh: "你要买什么？", th: "คุณจะซื้ออะไร" },
     { id: "18", side: 'right', ...ROLES.nn, zh: "我要买本子。", th: "ฉันจะซื้อสมุด" },
