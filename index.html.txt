@@ -7,7 +7,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     
-    <title>汉语口语聊天室</title>
+    <title>Nihao-Chinese 2/title>
     
     <link rel="stylesheet" href="style.css">
     
@@ -19,8 +19,17 @@
     <div class="phone-container">
         <header>
             <div class="top-bar">
-                <button class="lang-switch-btn" id="langBtn">中 / ไทย</button>
-                <div class="score-board">已学 <span id="currentCount">0</span> / <span id="totalCount">0</span></div>
+
+  <div class="lang-wrapper">
+
+    <span class="lang-text-left">ไทย</span>
+
+    <button class="lang-switch-btn" id="langBtn"></button>
+
+    <span class="lang-text-right">จีน</span>
+
+</div>
+                <div class="score-board"> <span id="currentCount">0</span> / <span id="totalCount">0</span></div>
             </div>
             <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
         </header>
@@ -33,7 +42,6 @@
             <div class="congrats-title">🎉 恭喜通关 🎉</div>
             <div class="congrats-text">
                <span id="userName" style="color:#2c3e50; font-weight:bold;">同学</span>，你真棒！<br>
-                 เก่งมากเลยครับ
             </div>
             <div id="displayTime" class="congrats-time"></div>
             <button class="close-btn" onclick="liff.closeWindow()">关闭</button>

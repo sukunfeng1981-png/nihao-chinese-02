@@ -9,7 +9,7 @@ const ROLES = {
 };
 
 const rawData = [
-    { id: "1", side: 'right', ...ROLES.nn, zh: "你去哪儿？", th: "คุณจะไปไหน" },
+        { id: "1", side: 'right', ...ROLES.nn, zh: "你去哪儿？", th: "คุณจะไปไหน" },
     { id: "2", side: 'left', ...ROLES.bb, zh: "我去医院。", th: "ฉันจะไปโรงพยาบาล" },
     { id: "3", side: 'left', ...ROLES.bb, zh: "你们去哪儿？", th: "พวกคุณจะไปไหน" },
     { id: "4", side: 'right', ...ROLES.nn, zh: "我们去学校。", th: "พวกเราจะไปโรงเรียน" },
@@ -65,7 +65,8 @@ const ui = {
     currentCount: document.getElementById('currentCount'),
     totalCount: document.getElementById('totalCount'),
     progress: document.getElementById('progressBar'),
-    langBtn: document.getElementById('langBtn')
+    langWrapper: document.querySelector('.lang-wrapper'),
+    langBtn: document.getElementById('langBtn'), // 保留它，因为下面动画还要用它
 };
 
 const getSafeId = (id) => String(id).replace(/[.-]/g, '_');
@@ -76,7 +77,7 @@ const getSortVal = (id) => {
 
 async function init() {
     try {
-        await liff.init({ liffId: "2009077149-eCbn1Urh" }); 
+        await liff.init({ liffId: "2009077149-N5kd2OBe" }); 
         if (!liff.isLoggedIn() && liff.isInClient()) {
             liff.login();
         } else {
@@ -92,7 +93,7 @@ async function init() {
     totalCount = rawData.filter(s => !/[a-zA-Z]/.test(String(s.id).replace('-',''))).length;
     ui.totalCount.textContent = totalCount;
     renderList();
-    ui.langBtn.onclick = toggleGlobalLanguage;
+    ui.langWrapper.onclick = toggleGlobalLanguage;
 }
 
 function unlockAudio() {
@@ -177,8 +178,18 @@ function toggleSingleLanguage(id) {
     th.style.display = isZh ? 'block' : 'none';
 }
 
+//  修改后的全局切换函数
 function toggleGlobalLanguage() {
+    if (isAudioPlaying) return; // 如果声音正在播放，禁止切换，防止错乱
+    
     isChineseGlobal = !isChineseGlobal;
+    
+    // 关键新增：让蓝色按钮的小球产生滑动动画
+    if (ui.langBtn) {
+        ui.langBtn.classList.toggle('chinese', isChineseGlobal);
+    }
+    
+    // 切换所有句子的显示状态
     document.querySelectorAll('.zh-text').forEach(el => el.style.display = isChineseGlobal ? 'block' : 'none');
     document.querySelectorAll('.th-text').forEach(el => el.style.display = isChineseGlobal ? 'none' : 'block');
 }
