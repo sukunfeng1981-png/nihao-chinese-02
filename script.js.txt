@@ -170,6 +170,9 @@ function handlePlay(s, element) {
     });
 }
 
+// ==========================================
+// 3. 语言切换逻辑 (单句切换与全局切换)
+// ==========================================
 function toggleSingleLanguage(id) {
     const bubble = document.getElementById(`bubble-${getSafeId(id)}`);
     const zh = bubble.querySelector('.zh-text'), th = bubble.querySelector('.th-text');
@@ -178,13 +181,12 @@ function toggleSingleLanguage(id) {
     th.style.display = isZh ? 'block' : 'none';
 }
 
-//  修改后的全局切换函数
 function toggleGlobalLanguage() {
     if (isAudioPlaying) return; // 如果声音正在播放，禁止切换，防止错乱
     
     isChineseGlobal = !isChineseGlobal;
     
-    // 关键新增：让蓝色按钮的小球产生滑动动画
+    // 让蓝色按钮的小球产生滑动动画
     if (ui.langBtn) {
         ui.langBtn.classList.toggle('chinese', isChineseGlobal);
     }
@@ -192,8 +194,11 @@ function toggleGlobalLanguage() {
     // 切换所有句子的显示状态
     document.querySelectorAll('.zh-text').forEach(el => el.style.display = isChineseGlobal ? 'block' : 'none');
     document.querySelectorAll('.th-text').forEach(el => el.style.display = isChineseGlobal ? 'none' : 'block');
-}
+} // <-- 确保这里只有一个闭合大括号
 
+// ==========================================
+// 4. 得分、进度条与通关弹窗
+// ==========================================
 function updateScore(playDing) {
     const currentScore = learnedSentences.size;
     ui.currentCount.textContent = currentScore;
@@ -214,4 +219,5 @@ function showCongrats() {
     document.getElementById('congrats-overlay').style.display = 'flex';
 }
 
+// 确保页面加载完成后执行初始化
 window.onload = init;
