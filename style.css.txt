@@ -149,6 +149,13 @@ header {
 .zh-text { font-size: 19px; font-weight: 500; }
 .th-text { font-size: 19px; }
 
+
+.image-bubble img {
+    max-width: 150px;  /* 限制图片最大宽度为 120 像素，可根据需要调整 */
+    height: auto;      /* 高度自动等比例缩放，绝对不会变形 */
+    border-radius: 12px; /* 给表情包加一点点圆角，视觉上更精致、融入聊天框 */
+    display: block;
+
 #congrats-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0, 0, 0, 0.75);

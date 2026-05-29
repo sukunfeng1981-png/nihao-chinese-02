@@ -8,6 +8,10 @@
     <meta http-equiv="Expires" content="0">
     
    <title>Nihao-Chinese 2</title>
+   <meta property="og:title" content="你好汉语 2" />
+   <meta property="og:description" content="คลิกที่ประโยค เพื่อฟังและพูดตาม" />
+   <meta property="og:image" content="https://github.com/sukunfeng1981-png/Nihao-Chinese-03/blob/main/images/nannan.jpg" />
+   <meta property="og:type" content="website" />
     
     <link rel="stylesheet" href="style.css">
     
@@ -44,7 +48,7 @@
                <span id="userName" style="color:#2c3e50; font-weight:bold;">同学</span>，你真棒！<br>
             </div>
             <div id="displayTime" class="congrats-time"></div>
-            <button class="close-btn" onclick="liff.closeWindow()">关闭</button>
+	    <button class="close-btn" onclick="handleUploadAndClose()">X</button>
         </div>
     </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>

@@ -9,7 +9,7 @@ const ROLES = {
 };
 
 const rawData = [
-    { id: "1", side: 'right', ...ROLES.nn, zh: "你去哪儿？", th: "คุณจะไปไหน" },
+        { id: "1", side: 'right', ...ROLES.nn, zh: "你去哪儿？", th: "คุณจะไปไหน" },
     { id: "2", side: 'left', ...ROLES.bb, zh: "我去医院。", th: "ฉันจะไปโรงพยาบาล" },
     { id: "3", side: 'left', ...ROLES.bb, zh: "你们去哪儿？", th: "พวกคุณจะไปไหน" },
     { id: "4", side: 'right', ...ROLES.nn, zh: "我们去学校。", th: "พวกเราจะไปโรงเรียน" },
@@ -65,7 +65,8 @@ const ui = {
     currentCount: document.getElementById('currentCount'),
     totalCount: document.getElementById('totalCount'),
     progress: document.getElementById('progressBar'),
-    langBtn: document.getElementById('langBtn')
+    langWrapper: document.querySelector('.lang-wrapper'),
+    langBtn: document.getElementById('langBtn'), // 保留它，因为下面动画还要用它
 };
 
 const getSafeId = (id) => String(id).replace(/[.-]/g, '_');
@@ -92,7 +93,7 @@ async function init() {
     totalCount = rawData.filter(s => !/[a-zA-Z]/.test(String(s.id).replace('-',''))).length;
     ui.totalCount.textContent = totalCount;
     renderList();
-    ui.langBtn.onclick = toggleGlobalLanguage;
+    ui.langWrapper.onclick = toggleGlobalLanguage;
 }
 
 function unlockAudio() {
@@ -169,6 +170,9 @@ function handlePlay(s, element) {
     });
 }
 
+// ==========================================
+// 3. 语言切换逻辑 (单句切换与全局切换)
+// ==========================================
 function toggleSingleLanguage(id) {
     const bubble = document.getElementById(`bubble-${getSafeId(id)}`);
     const zh = bubble.querySelector('.zh-text'), th = bubble.querySelector('.th-text');
@@ -178,11 +182,23 @@ function toggleSingleLanguage(id) {
 }
 
 function toggleGlobalLanguage() {
+    if (isAudioPlaying) return; // 如果声音正在播放，禁止切换，防止错乱
+    
     isChineseGlobal = !isChineseGlobal;
+    
+    // 让蓝色按钮的小球产生滑动动画
+    if (ui.langBtn) {
+        ui.langBtn.classList.toggle('chinese', isChineseGlobal);
+    }
+    
+    // 切换所有句子的显示状态
     document.querySelectorAll('.zh-text').forEach(el => el.style.display = isChineseGlobal ? 'block' : 'none');
     document.querySelectorAll('.th-text').forEach(el => el.style.display = isChineseGlobal ? 'none' : 'block');
-}
+} // <-- 确保这里只有一个闭合大括号
 
+// ==========================================
+// 4. 得分、进度条与通关弹窗
+// ==========================================
 function updateScore(playDing) {
     const currentScore = learnedSentences.size;
     ui.currentCount.textContent = currentScore;
@@ -203,4 +219,5 @@ function showCongrats() {
     document.getElementById('congrats-overlay').style.display = 'flex';
 }
 
+// 确保页面加载完成后执行初始化
 window.onload = init;
